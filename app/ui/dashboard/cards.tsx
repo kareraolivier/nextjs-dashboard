@@ -5,6 +5,7 @@ import {
   InboxIcon,
 } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
+import { fetchCardData } from '@/app/lib/data';
 
 const iconMap = {
   collected: BanknotesIcon,
@@ -13,21 +14,10 @@ const iconMap = {
   invoices: InboxIcon,
 };
 
-export default async function CardWrapper() {
-  return (
-    <>
-      {/* NOTE: comment in this code when you get to this point in the course */}
-
-      {/* <Card title="Collected" value={totalPaidInvoices} type="collected" />
-      <Card title="Pending" value={totalPendingInvoices} type="pending" />
-      <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
-      <Card
-        title="Total Customers"
-        value={numberOfCustomers}
-        type="customers"
-      /> */}
-    </>
-  );
+interface CardsData {
+  title: string;
+  value: number | string;
+  type: 'invoices' | 'customers' | 'pending' | 'collected';
 }
 
 export function Card({
@@ -40,7 +30,6 @@ export function Card({
   type: 'invoices' | 'customers' | 'pending' | 'collected';
 }) {
   const Icon = iconMap[type];
-
   return (
     <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
       <div className="flex p-4">
@@ -54,5 +43,45 @@ export function Card({
         {value}
       </p>
     </div>
+  );
+}
+
+export default async function CardWrapper() {
+  const {
+    numberOfCustomers,
+    numberOfInvoices,
+    totalPaidInvoices,
+    totalPendingInvoices,
+  } = await fetchCardData();
+
+  const cardsData: CardsData[] = [
+    {
+      title: 'Collected',
+      value: totalPaidInvoices,
+      type: 'collected',
+    },
+    {
+      title: 'Pending',
+      value: totalPendingInvoices,
+      type: 'pending',
+    },
+    {
+      title: 'Total Invoices',
+      value: numberOfInvoices,
+      type: 'invoices',
+    },
+    {
+      title: 'Total Customers',
+      value: numberOfCustomers,
+      type: 'customers',
+    },
+  ];
+
+  return (
+    <>
+      {cardsData.map((data: CardsData, i: number) => (
+        <Card key={i} title={data.title} value={data.value} type={data.type} />
+      ))}
+    </>
   );
 }
