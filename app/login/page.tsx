@@ -1,22 +1,17 @@
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import React from 'react';
+import AcmeLogo from '@/app/ui/acme-logo';
+import LoginForm from '@/app/ui/login-form';
 
-const Page = () => {
+export default function LoginPage() {
   return (
-    <div className="p-6">
-      <p>Login</p>
-      <div className="my-4 flex">
-        <Link
-          href="/"
-          className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-        >
-          <ArrowLeftIcon className="w-5 md:w-6" />
-          <span>Go back</span>
-        </Link>
+    <main className="flex items-center justify-center md:h-screen">
+      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
+        <div className="flex h-20 w-full items-end rounded-lg bg-blue-500 p-3 md:h-36">
+          <div className="w-32 text-white md:w-36">
+            <AcmeLogo />
+          </div>
+        </div>
+        <LoginForm />
       </div>
-    </div>
+    </main>
   );
-};
-
-export default Page;
+}
