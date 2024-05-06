@@ -1,9 +1,4 @@
 import type { NextAuthConfig } from 'next-auth';
-import { redirect } from 'next/navigation';
-
-export async function GET(request: Request) {
-  redirect('https://nextjs-dashboard-sampro.vercel.app/');
-}
 
 export const authConfig = {
   pages: {

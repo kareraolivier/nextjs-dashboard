@@ -7,10 +7,6 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
-export async function GET(request: Request) {
-  redirect('https://nextjs-dashboard-sampro.vercel.app/');
-}
-
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
